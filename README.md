@@ -32,12 +32,14 @@ python backup.py [OPTIONS]
 
 Options:
 	-O or --orgrepo_name	orgrepo name, like AIHackers/IAOC, username/reponame
-	-P or --out_path		directory to save your repo, default is "./backup_data
-	-I or --info			whether to save watch, star and folk info, default is False
+	-P or --out_path	directory to save your repo, default is "./backup_data
+	-I or --info		whether to save watch, star and folk info, default is False
 
 Examples:
+
 Backup repo, wiki, and issues to ./backup_data
 $ python backup.py -O AIHackers/IAOC
+
 Backup repo, wiki, issues and info to ~/backup_data
 $ python backup.py -O AIHackers/IAOC -P ~/backup_data -I True
 
