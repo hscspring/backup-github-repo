@@ -148,6 +148,9 @@ def main():
     for issue in issues:
         fname = "_".join((issue['state'],
                           str(issue['number']), issue['title'])) + ".txt"
+        fname = fname.replace("/", "-")
+        fname = fname.replace(".", "-")
+        fname = fname.replace(" ", "-")
         fpath = os.path.join(issue_path, fname)
         write_json(fpath, issue, indent=4, ensure_ascii=False)
 
