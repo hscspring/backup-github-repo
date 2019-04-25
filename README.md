@@ -27,6 +27,8 @@ Here are some steps to generate a token:
 - Enter a description ,whatever you like.
 - Select scopes following the [help](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/), or simply you could select all of them.
 
+If you are backing up a public repo, you need not to deal with the `env.conf`.
+
 ```bash
 python backup.py [OPTIONS]
 
