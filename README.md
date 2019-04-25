@@ -65,3 +65,11 @@ The final directory tree is like (cd ~/backup_data):
     	│   ├── ...
 ```
 
+## Similars
+
+- [josegonzalez/python-github-backup: backup a github user or organization](https://github.com/josegonzalez/python-github-backup)
+- [taeguk/github-export: Export(Backup) your github repositories.](https://github.com/taeguk/github-export)
+- [kanishkegb/github-backup-all: A simple python script to back-up all the repos of a user to a local drive](https://github.com/kanishkegb/github-backup-all)
+- [ltpitt/python-github-backup: Python script to backup all repositories for a specific user, features backup rotation](https://github.com/ltpitt/python-github-backup)
+- [camptocamp/github-backup: A Python script to backup your GH organization](https://github.com/camptocamp/github-backup)
+
