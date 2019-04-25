@@ -22,10 +22,10 @@ First of all, edit the `env.conf` to add authentication info. Pay attention, `to
 
 Here are some steps to generate a token:
 
-- Login `https://github.com` 
+- Login [GitHub](https://github.com)
 - Enter `Settings -> Developer settings -> Personal access tokens -> Generate new token`
 - Enter a description ,whatever you like.
-- Select scopes following the [help](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/), or simply you could select all of them.
+- Select scopes following the [help](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/), or simply you could select all of the `repo`.
 
 If you are backing up a public repo, you need not to deal with the `env.conf`.
 
