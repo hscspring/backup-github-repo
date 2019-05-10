@@ -3,6 +3,7 @@ from git import Repo
 import json
 import os
 import requests
+import time
 from pyhocon import ConfigFactory
 
 
@@ -69,13 +70,18 @@ class GitRepo:
             for i, issue in enumerate(issues):
                 print("\tcomments for No.%d issue done..." % (i+1))
                 issue['comments_items'] = self.get_comments(issue)
+                time.sleep(3)
 
         return issues
 
     def get_comments(self, issue: str) -> list:
         comments_url = issue['comments_url'] + '?page=1&per_page=100'
         comments_num = issue['comments']
-        comments, _ = self.get(comments_url, self.headers)
+        try:
+            comments, _ = self.get(comments_url, self.headers)
+        except Exception as e:
+            print("Error: ", e)
+            comments = []
         return comments
 
 
