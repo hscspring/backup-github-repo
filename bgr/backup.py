@@ -157,6 +157,8 @@ def main():
         fname = fname.replace("/", "-")
         fname = fname.replace(".", "-")
         fname = fname.replace(" ", "-")
+        if len(fname) > 255:
+            fname = fname[:50] + "xxx" + fname[-50:]
         fpath = os.path.join(issue_path, fname)
         write_json(fpath, issue, indent=4, ensure_ascii=False)
 
