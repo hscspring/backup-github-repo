@@ -134,7 +134,7 @@ def main():
     repo = GitRepo(username, password, token)
 
     if if_info:
-        print("Processing info...")
+        print("Processing info of %s ..." % orgrepo_name)
         watchers = repo.get_info(orgrepo_name, "subscribers")
         starers = repo.get_info(orgrepo_name, "stargazers")
         forkers = repo.get_info(orgrepo_name, "forks")
@@ -145,11 +145,12 @@ def main():
         write_json(os.path.join(info_path, "forkers.txt"),
                    forkers, indent=4, ensure_ascii=False)
 
-    print("Cloning...")
+    print("Cloning Code of %s ..." % orgrepo_name)
     repo.clone(orgrepo_name, code_path)
+    print("Cloning Wiki of %s ..." % orgrepo_name)
     repo.clone(orgrepo_name, wiki_path, wiki=True)
 
-    print("Processing issues...")
+    print("Processing issues of %s ..." % orgrepo_name)
     issues = repo.get_issues(orgrepo_name)
     for issue in issues:
         fname = "_".join((issue['state'],
