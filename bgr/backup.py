@@ -32,8 +32,9 @@ class GitRepo:
             return resp.json(), resp.links
 
     def get_info(self, orgrepo_name: str, info_type: str) -> list:
+        suffix = "?page="
         info_url = "/".join((self.base_api, orgrepo_name, info_type))
-        info, links = self.get(info_url, self.headers)
+        info = self.get_items(info_url, suffix)
         return info
 
     def clone(self, orgrepo_name: str, to_path: str, wiki=False):
@@ -48,22 +49,9 @@ class GitRepo:
             print("Error: ", e)
 
     def get_issues(self, orgrepo_name: str) -> list:
-        page = 1
-        suffix = "issues?state=all&page="
-        url = "/".join((self.base_api, orgrepo_name, suffix)) + str(page)
-        issues, links = self.get(url, self.headers)
-        try:
-            pnum = int(links['last']['url'].split("page=")[-1])
-        except KeyError as e:
-            pnum = 0
-
-        if pnum > 1:
-            for p in range(2, pnum+1):
-                url = "/".join((self.base_api, orgrepo_name,
-                                suffix)) + str(p)
-                resp_issues, _ = self.get(url, self.headers)
-                issues.extend(resp_issues)
-
+        suffix = "&page="
+        url = "/".join((self.base_api, orgrepo_name, "issues?state=all"))
+        issues = self.get_items(url, suffix)
         print("issues done, we got %d issues." % len(issues))
         print("comments for each issue start...")
         if len(issues) > 0:
@@ -75,14 +63,31 @@ class GitRepo:
         return issues
 
     def get_comments(self, issue: str) -> list:
-        comments_url = issue['comments_url'] + '?page=1&per_page=100'
-        comments_num = issue['comments']
+        suffix = "?page="
+        comments_url = issue['comments_url']# + '?page=1&per_page=100'
+        comments = self.get_items(comments_url, suffix)
+        return comments
+
+    def get_items(self, item_url: str, suffix: str) -> list:
+
         try:
-            comments, _ = self.get(comments_url, self.headers)
+            items, links = self.get(item_url, self.headers)
         except Exception as e:
             print("Error: ", e)
-            comments = []
-        return comments
+            items = []
+
+        try:
+            pnum = int(links['last']['url'].split("page=")[-1])
+        except KeyError as e:
+            pnum = 0
+
+        if pnum > 1:
+            for p in range(2, pnum+1):
+                url = item_url + suffix + str(p)
+                resp_items, _ = self.get(url, self.headers)
+                items.extend(resp_items)
+        return items
+
 
 
 def write_json(fpath: str, data, **kwargs):
@@ -134,7 +139,7 @@ def main():
     repo = GitRepo(username, password, token)
 
     if if_info:
-        print("Processing info of %s ..." % orgrepo_name)
+        print("Processing Info of %s ..." % orgrepo_name)
         watchers = repo.get_info(orgrepo_name, "subscribers")
         starers = repo.get_info(orgrepo_name, "stargazers")
         forkers = repo.get_info(orgrepo_name, "forks")
@@ -150,7 +155,7 @@ def main():
     print("Cloning Wiki of %s ..." % orgrepo_name)
     repo.clone(orgrepo_name, wiki_path, wiki=True)
 
-    print("Processing issues of %s ..." % orgrepo_name)
+    print("Processing Issues of %s ..." % orgrepo_name)
     issues = repo.get_issues(orgrepo_name)
     for issue in issues:
         fname = "_".join((issue['state'],

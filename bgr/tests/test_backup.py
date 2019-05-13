@@ -28,7 +28,6 @@ def test_get():
     resp, links = repo.get(url, headers)
     assert type(resp) == dict
     assert type(links) == dict
-    assert resp['login'] == username
 
 def test_get_info(get_orgrepo):
     repo =GitRepo(username, password, token)
