@@ -65,6 +65,8 @@ The final directory tree is like (cd ~/backup_data):
     	│   ├── ...
 ```
 
+Also you can use `python list_allrepos.py -P YOUR_OUTPATH  -T True` to create a bash scripts, with which you may easily backup any ones of your repos.
+
 ## Similars
 
 - [josegonzalez/python-github-backup: backup a github user or organization](https://github.com/josegonzalez/python-github-backup)

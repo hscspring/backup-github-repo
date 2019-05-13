@@ -69,12 +69,11 @@ class GitRepo:
         return comments
 
     def get_items(self, item_url: str, suffix: str) -> list:
-
         try:
             items, links = self.get(item_url, self.headers)
         except Exception as e:
             print("Error: ", e)
-            items = []
+            items, links = [], {}
 
         try:
             pnum = int(links['last']['url'].split("page=")[-1])
@@ -86,9 +85,13 @@ class GitRepo:
                 url = item_url + suffix + str(p)
                 resp_items, _ = self.get(url, self.headers)
                 items.extend(resp_items)
+        
+        # while 1:
+        #     nextlink = links['next']['url']
+        #     resp_items, links = self.get(nextlink, self.headers)
+        #     items.extend(resp_items)
+
         return items
-
-
 
 def write_json(fpath: str, data, **kwargs):
     fout = open(fpath, 'w')
