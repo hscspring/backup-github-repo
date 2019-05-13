@@ -29,6 +29,8 @@ Here are some steps to generate a token:
 
 If you are backing up a public repo, you need not to deal with the `env.conf`.
 
+### Backup a repo
+
 ```bash
 python backup.py [OPTIONS]
 
@@ -65,7 +67,24 @@ The final directory tree is like (cd ~/backup_data):
     	│   ├── ...
 ```
 
-Also you can use `python list_allrepos.py -P YOUR_OUTPATH  -T True` to create a bash scripts, with which you may easily backup any ones of your repos.
+### Backup all repos
+
+Also you can use `list_allrepos.py` to create a bash scripts, with which you may easily backup any ones of your repos.
+
+```bash
+python list_allrepos.py [OPTIONS]
+
+Options:
+	-P or --out_path	directory to save your repo, default is "./backup_data
+	-I or --info		whether to save watch, star and folk info, default is False
+
+Examples:
+
+Output a bash script named: batch.sh
+$ python list_allrepos.py -P ~/backup_data -I True
+$ chmod a+x batch.sh
+$ ./batch.sh
+```
 
 ## Similars
 
