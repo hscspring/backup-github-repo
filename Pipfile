@@ -10,6 +10,7 @@ pytest = "*"
 gitpython = "*"
 pyhocon = "*"
 requests = "*"
+pnlp = "*"
 
 [requires]
 python_version = "3.7"
