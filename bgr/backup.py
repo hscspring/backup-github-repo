@@ -2,6 +2,7 @@ import argparse
 from git import Repo
 import json
 import os
+import random
 import requests
 import time
 from pyhocon import ConfigFactory
@@ -58,8 +59,6 @@ class GitRepo:
             for i, issue in enumerate(issues):
                 print("\tcomments for No.%d issue done..." % (i+1))
                 issue['comments_items'] = self.get_comments(issue)
-                time.sleep(3)
-
         return issues
 
     def get_comments(self, issue: str) -> list:
@@ -81,9 +80,11 @@ class GitRepo:
             pnum = 0
 
         if pnum > 1:
+            time.sleep(random.randint(1,3))
             for p in range(2, pnum+1):
                 url = item_url + suffix + str(p)
                 resp_items, _ = self.get(url, self.headers)
+                time.sleep(random.randint(1,3))
                 items.extend(resp_items)
         
         # while 1:

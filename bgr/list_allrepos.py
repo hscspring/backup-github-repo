@@ -43,7 +43,7 @@ def main():
         line = "python backup.py -O " + rname
         line = line + " -P " + out_path + " -I " + if_info
         out.append(line)
-    piop.write_file('bash.sh', out)
+    piop.write_file('batch.sh', out)
 
 
 if __name__ == '__main__':
