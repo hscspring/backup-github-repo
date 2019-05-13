@@ -59,6 +59,7 @@ class GitRepo:
             for i, issue in enumerate(issues):
                 print("\tcomments for No.%d issue done..." % (i+1))
                 issue['comments_items'] = self.get_comments(issue)
+                time.sleep(3)
         return issues
 
     def get_comments(self, issue: str) -> list:
